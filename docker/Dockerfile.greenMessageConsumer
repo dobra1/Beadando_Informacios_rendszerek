@@ -1,0 +1,12 @@
+FROM maven:3.8.7-openjdk-18-slim
+
+WORKDIR /app
+
+# A teljes projekt átmásolása a konténerbe
+COPY . /app
+
+# Maven build
+RUN mvn clean install
+
+# A GreenMessageConsumer osztály futtatása
+CMD ["java", "-cp", "target/Beadando_Informacios_rendszerek-1.0-SNAPSHOT.jar:target/dependency/*", "org.colorQueue.GreenMessageConsumer"]

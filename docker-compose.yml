@@ -1,0 +1,71 @@
+version: '3.8'
+
+services:
+  blue-consumer:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.blueMessageConsumer
+    depends_on:
+      - activemq
+    environment:
+      - ACTIVEMQ_HOST=activemq
+      - ACTIVEMQ_PORT=61616
+
+  red-consumer:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.redMessageConsumer
+    depends_on:
+      - activemq
+    environment:
+      - ACTIVEMQ_HOST=activemq
+      - ACTIVEMQ_PORT=61616
+
+  green-consumer:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.greenMessageConsumer
+    depends_on:
+      - activemq
+    environment:
+      - ACTIVEMQ_HOST=activemq
+      - ACTIVEMQ_PORT=61616
+
+  color-message-producer:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.colorMessageProducer
+    depends_on:
+      - activemq
+    environment:
+      - ACTIVEMQ_HOST=activemq
+      - ACTIVEMQ_PORT=61616
+
+  color-statistics-consumer:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.colorStatisticsConsumer
+    depends_on:
+      - activemq
+    environment:
+      - ACTIVEMQ_HOST=activemq
+      - ACTIVEMQ_PORT=61616
+
+  dead-letter-queue-consumer:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.deadLetterQueueConsumer
+    depends_on:
+      - activemq
+    environment:
+      - ACTIVEMQ_HOST=activemq
+      - ACTIVEMQ_PORT=61616
+
+  activemq:
+    image: rmohr/activemq
+    ports:
+      - "61616:61616"   # broker port (TCP)
+      - "8161:8161"     # web UI port (http://localhost:8161)
+    environment:
+      - ACTIVEMQ_USER=admin
+      - ACTIVEMQ_PASSWORD=admin

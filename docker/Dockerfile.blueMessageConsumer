@@ -1,0 +1,13 @@
+# Base image with Maven and OpenJDK
+FROM maven:3.8.7-openjdk-18-slim
+
+WORKDIR /app
+
+# Copy the project into the container
+COPY . /app
+
+# Build the project
+RUN mvn clean package
+
+# Run the main class
+CMD ["java", "-cp", "target/Beadando_Informacios_rendszerek-1.0-SNAPSHOT.jar:target/dependency/*", "org.colorQueue.BlueMessageConsumer"]

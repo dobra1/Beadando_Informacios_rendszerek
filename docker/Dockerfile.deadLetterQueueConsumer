@@ -1,0 +1,11 @@
+FROM maven:3.8.7-openjdk-18-slim
+
+WORKDIR /app
+
+COPY . /app
+
+# Build + függőségek bemásolása
+RUN mvn clean package dependency:copy-dependencies
+
+# JAR + minden dependency elérhetővé tétele classpath-ban
+CMD ["java", "-cp", "target/Beadando_Informacios_rendszerek-1.0-SNAPSHOT.jar:target/dependency/*", "org.colorQueue.DeadLetterQueueConsumer"]
