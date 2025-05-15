@@ -6,4 +6,4 @@ COPY . /app
 
 RUN mvn clean package
 
-CMD ["java", "-cp", "target/Beadando_Informacios_rendszerek-1.0-SNAPSHOT.jar:target/dependency/*", "org.colorQueue.ColorMessageProducer"]
+CMD ["java", "-jar", "target/color-message-producer1.jar"]

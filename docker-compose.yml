@@ -6,7 +6,8 @@ services:
       context: .
       dockerfile: docker/Dockerfile.blueMessageConsumer
     depends_on:
-      - activemq
+      activemq:
+        condition: service_healthy
     environment:
       - ACTIVEMQ_HOST=activemq
       - ACTIVEMQ_PORT=61616
@@ -16,7 +17,8 @@ services:
       context: .
       dockerfile: docker/Dockerfile.redMessageConsumer
     depends_on:
-      - activemq
+      activemq:
+        condition: service_healthy
     environment:
       - ACTIVEMQ_HOST=activemq
       - ACTIVEMQ_PORT=61616
@@ -26,7 +28,8 @@ services:
       context: .
       dockerfile: docker/Dockerfile.greenMessageConsumer
     depends_on:
-      - activemq
+      activemq:
+        condition: service_healthy
     environment:
       - ACTIVEMQ_HOST=activemq
       - ACTIVEMQ_PORT=61616
@@ -36,7 +39,8 @@ services:
       context: .
       dockerfile: docker/Dockerfile.colorMessageProducer
     depends_on:
-      - activemq
+      activemq:
+        condition: service_healthy
     environment:
       - ACTIVEMQ_HOST=activemq
       - ACTIVEMQ_PORT=61616
@@ -46,7 +50,8 @@ services:
       context: .
       dockerfile: docker/Dockerfile.colorStatisticsConsumer
     depends_on:
-      - activemq
+      activemq:
+        condition: service_healthy
     environment:
       - ACTIVEMQ_HOST=activemq
       - ACTIVEMQ_PORT=61616
@@ -56,7 +61,8 @@ services:
       context: .
       dockerfile: docker/Dockerfile.deadLetterQueueConsumer
     depends_on:
-      - activemq
+      activemq:
+        condition: service_healthy
     environment:
       - ACTIVEMQ_HOST=activemq
       - ACTIVEMQ_PORT=61616
@@ -64,8 +70,13 @@ services:
   activemq:
     image: rmohr/activemq
     ports:
-      - "61616:61616"   # broker port (TCP)
-      - "8161:8161"     # web UI port (http://localhost:8161)
+      - "61616:61616"
+      - "8161:8161"
     environment:
       - ACTIVEMQ_USER=admin
       - ACTIVEMQ_PASSWORD=admin
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8161"]
+      interval: 10s
+      timeout: 5s
+      retries: 5

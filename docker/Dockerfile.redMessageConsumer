@@ -9,4 +9,4 @@ COPY . /app
 RUN mvn clean install
 
 # A RedMessageConsumer osztály futtatása
-CMD ["java", "-cp", "target/Beadando_Informacios_rendszerek-1.0-SNAPSHOT.jar:target/dependency/*", "org.colorQueue.RedMessageConsumer"]
+CMD ["java", "-jar", "target/red-consumer2.jar"]

@@ -8,4 +8,4 @@ COPY . /app
 RUN mvn clean package dependency:copy-dependencies
 
 # JAR + minden dependency elérhetővé tétele classpath-ban
-CMD ["java", "-cp", "target/Beadando_Informacios_rendszerek-1.0-SNAPSHOT.jar:target/dependency/*", "org.colorQueue.DeadLetterQueueConsumer"]
+CMD ["java", "-jar", "target/dead-letter-queue-consumer5.jar"]

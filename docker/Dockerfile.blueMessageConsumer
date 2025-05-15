@@ -10,4 +10,4 @@ COPY . /app
 RUN mvn clean package
 
 # Run the main class
-CMD ["java", "-cp", "target/Beadando_Informacios_rendszerek-1.0-SNAPSHOT.jar:target/dependency/*", "org.colorQueue.BlueMessageConsumer"]
+CMD ["java", "-jar", "target/blue-consumer1.jar"]

@@ -9,4 +9,4 @@ COPY . /app
 RUN mvn clean install
 
 # A GreenMessageConsumer osztály futtatása
-CMD ["java", "-cp", "target/Beadando_Informacios_rendszerek-1.0-SNAPSHOT.jar:target/dependency/*", "org.colorQueue.GreenMessageConsumer"]
+CMD ["java", "-jar", "target/green-consumer3.jar"]
