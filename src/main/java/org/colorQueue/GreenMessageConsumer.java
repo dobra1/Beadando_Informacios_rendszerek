@@ -2,7 +2,7 @@ package org.colorQueue;
 
 import org.apache.activemq.*;
 
-import javax.jms.*;
+import jakarta.jms.*;
 import java.util.*;
 
 public class GreenMessageConsumer {
