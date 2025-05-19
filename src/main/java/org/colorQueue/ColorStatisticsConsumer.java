@@ -2,8 +2,7 @@ package org.colorQueue;
 
 import org.apache.activemq.*;
 
-import javax.jms.*;
-import javax.jms.Message;
+import jakarta.jms.*;
 
 public class ColorStatisticsConsumer {
     public static void main(String[] args) {
@@ -13,13 +12,13 @@ public class ColorStatisticsConsumer {
             connection.start();
 
             Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
-            Queue statsQueue = session.createQueue("colorStatistics");
+            jakarta.jms.Queue statsQueue = session.createQueue("colorStatistics");
             MessageConsumer consumer = session.createConsumer(statsQueue);
 
             System.out.println("Statisztikai üzenetfogyasztó elindult...");
 
             while (true) {
-                Message message = consumer.receive();
+                jakarta.jms.Message message = consumer.receive();
                 if (message instanceof TextMessage) {
                     String text = ((TextMessage) message).getText();
                     System.out.println("STATISZTIKA: " + text);

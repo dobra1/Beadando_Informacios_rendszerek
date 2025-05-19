@@ -2,8 +2,7 @@ package org.colorQueue;
 
 import org.apache.activemq.*;
 
-import javax.jms.*;
-import javax.jms.Message;
+import jakarta.jms.*;
 
 public class DeadLetterQueueConsumer {
     public static void main(String[] args) {
@@ -13,13 +12,13 @@ public class DeadLetterQueueConsumer {
             connection.start();
 
             Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
-            Queue dlq = session.createQueue("DLQ.colorQueue");
+            jakarta.jms.Queue dlq = session.createQueue("DLQ.colorQueue");
             MessageConsumer consumer = session.createConsumer(dlq);
 
             System.out.println("DLQ fogyasztó fut...");
 
             while (true) {
-                Message message = consumer.receive();
+                jakarta.jms.Message message = consumer.receive();
 
                 if (message instanceof TextMessage) {
                     String text = ((TextMessage) message).getText();
